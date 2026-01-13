@@ -8,6 +8,14 @@
 </head>
 
 <body>
+<div class="bg-particles"></div>
+<div class="slime-bg">
+  <span class="slime s1"></span>
+  <span class="slime s2"></span>
+  <span class="slime s3"></span>
+  <span class="slime s4"></span>
+</div>
+
 
 <header id="header">
   <strong>Portfolio</strong>
@@ -21,11 +29,54 @@
 <!-- ================= Hero ================= -->
 <section class="hero fade-in">
   <h1>リディロス ヒロシ</h1>
+  <div class="profile-extend fade-in">
+
+  <!-- 左：写真 -->
+  <div class="profile-photo-wrap">
+    <img src="20241026_122911 - コピー.jpg" alt="友人と遊んでいる写真">
+    <p class="photo-note">※友人と文化祭で遊んでいる様子</p>
+  </div>
+
+  <!-- 右：表 -->
+  <div class="profile-table-wrap">
+    <table class="profile-table">
+      <tr>
+        <th>趣味</th>
+        <td>
+          ゲームプレイ（RPG / MMO /FPS）<br>
+          ボカロ　アニメ　漫画
+        </td>
+      </tr>
+      <tr>
+        <th>休日の過ごし方</th>
+        <td>
+          友人とゲーム・カラオケ<br>
+          家族と遊んだり歌うこと
+        </td>
+      </tr>
+      <tr>
+        <th>好きなゲーム</th>
+        <td>
+          ドラクエ　APEX プロセカ　<br>
+        　ゼルダの伝説　Hoyobaゲー　その他マリパなどのptゲームなど
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
   <p>
     横浜デジタルアーツ専門学校 ゲーム科 2年<br>
     ゲームプログラマー志望 / Unity・C#
   </p>
-  <a href="#works" class="btn">作品を見る</a>
+
+  <!-- ★ 3ボタン化 -->
+  <div class="hero-actions">
+    <a href="#works" class="btn">個人作品を見る</a>
+    <a href="#skills" class="btn sub">スキルを見る</a>
+    <a href="#about" class="btn ghost">自己紹介を見る</a>
+  </div>
 </section>
 
 <!-- ================= Works ================= -->
@@ -39,7 +90,18 @@
       <div class="thumb-image">
         <span>▶ PLAY MOVIE</span>
       </div>
+
       <h3>恐怖の館</h3>
+
+      <!-- ★ 作品タグ -->
+      <div class="tags">
+        <span>Unity</span>
+        <span>C#</span>
+        <span>Tilemap</span>
+        <span>A*</span>
+        <span>AI</span>
+      </div>
+
       <p>
         ランダム生成タイルマップ ×<br>
         A*アルゴリズムによるエネミー追従AI
@@ -51,7 +113,17 @@
       <div class="thumb-image sub">
         <span>▶ PLAY MOVIE</span>
       </div>
-      <h3>エネミーAI 試作（未使用）</h3>
+
+      <h3>エネミーAI 試作</h3>
+
+      <!-- ★ 作品タグ -->
+      <div class="tags">
+        <span>Unity</span>
+        <span>C#</span>
+        <span>AI</span>
+        <span>State</span>
+      </div>
+
       <p>
         視線判定・状態遷移を重視した<br>
         高安定AIプロトタイプ
@@ -59,8 +131,6 @@
     </div>
 
   </div>
-
-
 </section>
 
 <!-- ================= Skills ================= -->
@@ -193,6 +263,8 @@
     </p>
   </div>
 </div>
+
+
 
 <!-- ================= Modal：エネミーAI ================= -->
 <div id="modal-enemy" class="modal">

@@ -257,3 +257,193 @@ footer {
     height: 180px;
   }
 }
+/* ===============================
+   Profile Extend
+=============================== */
+.profile-extend {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: 900px;
+}
+
+/* 左：写真 */
+.profile-photo-wrap img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.photo-note {
+  font-size: 12px;
+  color: #666;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* 右：表 */
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffffcc;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.profile-table th,
+.profile-table td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.profile-table th {
+  width: 140px;
+  background: #f0f3ff;
+  font-weight: 600;
+}
+
+.profile-table tr:not(:last-child) {
+  border-bottom: 1px solid #e5e8f0;
+}
+
+/* ===============================
+   Responsive
+=============================== */
+@media (max-width: 768px) {
+  .profile-extend {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-table {
+    width: 100%;
+  }
+}
+/* ===============================
+   Background Particles
+=============================== */
+.bg-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+@keyframes floatStars {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-300px) translateX(-200px);
+  }
+}
+.bg-particles::before,
+.bg-particles::after {
+  content: "";
+  position: absolute;
+  inset: -200px;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(122, 255, 61, 0.6) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(46, 212, 241, 0.5) 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 80%, rgba(255, 114, 201, 0.4) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 90% 20%, rgba(255,255,255,0.5) 0 2px, transparent 3px);
+  background-size: 300px 300px;
+  animation: floatStars 60s linear infinite;
+}
+.bg-particles::after {
+  background-image:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0.0) 40%,
+      rgba(255,255,255,0.35) 50%,
+      rgba(255,255,255,0.0) 60%
+    );
+  background-size: 800px 800px;
+  animation: shootingLight 25s linear infinite;
+}
+
+@keyframes shootingLight {
+  0% {
+    transform: translate(-500px, 500px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(500px, -500px);
+    opacity: 0;
+  }
+}
+/* ===============================
+   Slime Background
+=============================== */
+.slime-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.slime {
+  position: absolute;
+  width: 120px;
+  height: 100px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(86, 222, 243, 0.9),
+    rgba(250, 121, 41, 0.6) 40%,
+    rgba(100, 221, 255, 0.35) 70%
+  );
+  border-radius: 50% 50% 45% 45%;
+  filter: blur(0.3px);
+  opacity: 0.65;
+  animation: floatSlime 30s ease-in-out infinite;
+}
+@keyframes floatSlime {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  50% {
+    transform: translateY(-60px) translateX(40px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+.s1 {
+  top: 20%;
+  left: 10%;
+  animation-duration: 32s;
+}
+
+.s2 {
+  top: 60%;
+  left: 70%;
+  width: 160px;
+  height: 130px;
+  opacity: 0.5;
+  animation-duration: 40s;
+}
+
+.s3 {
+  top: 35%;
+  left: 50%;
+  width: 90px;
+  height: 75px;
+  opacity: 0.4;
+  animation-duration: 26s;
+}
+
+.s4 {
+  top: 75%;
+  left: 25%;
+  width: 140px;
+  height: 110px;
+  opacity: 0.45;
+  animation-duration: 36s;
+}
