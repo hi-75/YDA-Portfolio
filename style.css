@@ -54,7 +54,7 @@ header a {
 =============================== */
 .hero {
   height: 100vh;
-  padding-top: 80px;
+  padding-top: 160 px;
   display: flex;
   flex-direction: column;
   justify-content: center;
