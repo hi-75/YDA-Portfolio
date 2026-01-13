@@ -1,106 +1,246 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <meta charset="utf-8" />
-    <title>Portfolio | リディロス ヒロシ</title>
+  <meta charset="utf-8">
+  <title>Portfolio | リディロス ヒロシ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <h1>ポートフォリオ</h1>
-    <p>横浜デジタルアーツ専門学校 ゲーム科</p>
-    <p>2年41番 リディロス ヒロシ</p>
+<header id="header">
+  <strong>Portfolio</strong>
+  <nav>
+    <a href="#works">Works</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
 
-    <hr>
+<!-- ================= Hero ================= -->
+<section class="hero fade-in">
+  <h1>リディロス ヒロシ</h1>
+  <p>
+    横浜デジタルアーツ専門学校 ゲーム科 2年<br>
+    ゲームプログラマー志望 / Unity・C#
+  </p>
+  <a href="#works" class="btn">作品を見る</a>
+</section>
 
-    <h2>自己紹介</h2>
-    <p>
-        ゲームプログラマー志望。<br>
-        幼少期からゲームに親しみ、現在はプレイヤー視点を意識した
-        分かりやすく快適なゲーム制作を目標に学習しています。<br>
-        Unity（C#）を中心に、ギミック実装やアルゴリズムの理解を重視して制作を行っています。
+<!-- ================= Works ================= -->
+<section id="works" class="section fade-in">
+  <h2>Works</h2>
+
+  <div class="works-grid">
+
+    <!-- 作品① -->
+    <div class="work-card thumb" onclick="openModalMain()">
+      <div class="thumb-image">
+        <span>▶ PLAY MOVIE</span>
+      </div>
+      <h3>恐怖の館</h3>
+      <p>
+        ランダム生成タイルマップ ×<br>
+        A*アルゴリズムによるエネミー追従AI
+      </p>
+    </div>
+
+    <!-- 作品② -->
+    <div class="work-card thumb" onclick="openModalEnemy()">
+      <div class="thumb-image sub">
+        <span>▶ PLAY MOVIE</span>
+      </div>
+      <h3>エネミーAI 試作（未使用）</h3>
+      <p>
+        視線判定・状態遷移を重視した<br>
+        高安定AIプロトタイプ
+      </p>
+    </div>
+
+  </div>
+
+
+</section>
+
+<!-- ================= Skills ================= -->
+<section id="skills" class="section fade-in">
+  <h2>Skills</h2>
+  <div class="skill-grid">
+    <span>Unity（2D / 3D）</span>
+    <span>C#</span>
+    <span>Tilemap</span>
+    <span>ランダム生成</span>
+    <span>A*アルゴリズム</span>
+    <span>エネミーAI</span>
+    <span>状態管理</span>
+    <span>ギミック実装</span>
+  </div>
+</section>
+
+<!-- ================= About / Resume ================= -->
+<section id="about" class="section fade-in">
+  <h2>About / Resume</h2>
+
+  <div class="about-wrap">
+    <img src="image.jpg" class="profile-photo" alt="プロフィール写真">
+
+    <div class="about-content">
+
+      <p class="about-text">
+        ゲームプログラマー志望。<br><br>
+        幼少期からゲームに親しみ、現在は
+        <strong>「プレイヤーが迷わず、ストレスを感じない体験」</strong>
+        を意識したゲーム制作を行っています。<br><br>
+        Unity（C#）を中心に、ステージ構造・ギミック・
+        エネミーAIなど<strong>体験に直結する処理</strong>の実装を得意としています。
+      </p>
+
+      <div class="resume-box">
+        <h3>基本情報</h3>
+        <ul>
+          <li><strong>氏名：</strong>リディロス ヒロシ</li>
+          <li><strong>学校：</strong>横浜デジタルアーツ専門学校 ゲーム科</li>
+          <li><strong>学年：</strong>2年</li>
+          <li><strong>志望職種：</strong>ゲームプログラマー</li>
+        </ul>
+      </div>
+
+      <div class="resume-box">
+        <h3>学生時代に力を入れたこと</h3>
+        <p>
+          スーパー鮮魚部門でのアルバイトに注力しました。<br><br>
+          18時から閉店までを1人で任され、
+          値引き判断・品出し・作業場清掃を
+          限られた時間内で行う必要がありました。<br><br>
+          優先順位を意識して行動することで、
+          <strong>時間管理能力と責任感</strong>を身につけました。
+        </p>
+      </div>
+
+      <div class="resume-box">
+        <h3>強み</h3>
+        <p>
+          MMOゲーム「ドラゴンクエストX」を
+          1万時間以上継続プレイしています。<br><br>
+          ユーザーが迷いやすいポイントや
+          ストレスを感じる場面を
+          実装者視点で考えられることが強みです。
+        </p>
+      </div>
+
+      <div class="resume-box">
+        <h3>資格</h3>
+        <ul>
+          <li>CGクリエイター検定 ベーシック 合格</li>
+          <li>情報検定 情報活用試験 3級 合格</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>© Portfolio</footer>
+
+<!-- ================= Modal：恐怖の館 ================= -->
+<div id="modal-main" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModalMain()">×</span>
+
+    <h3>恐怖の館</h3>
+    <p><strong>個人制作 / 制作期間：2週間</strong></p>
+
+    <iframe
+      src="https://drive.google.com/file/d/15TaYX9h1Ecq4imyzasuCXRRs4QHBIbkj/preview"
+      allow="autoplay; fullscreen"
+      
+      allowfullscreen>
+    </iframe>
+
+    <p class="modal-text">
+<h4>スクリプト構成・処理内容</h4>
+
+<ul class="script-list">
+  <li>
+    <strong>StageGenerator.cs</strong><br>
+    Tilemapを使用してマップを自動生成。<br>
+    壁・床・通路をランダム配置し、
+    必ずゴールへ到達可能な構造になるよう制御。
+  </li>
+
+  <li>
+    <strong>AStarPathFinder.cs</strong><br>
+    グリッドベースのA*アルゴリズムを実装。<br>
+    障害物ノードを除外し、最短経路を探索。
+  </li>
+
+  <li>
+    <strong>EnemyController.cs</strong><br>
+    一定間隔で経路再計算を行い、
+    プレイヤーの位置変化に追従。<br>
+    毎フレーム計算を避け、処理負荷を軽減。
+  </li>
+</ul>
+
+<h4>工夫した点</h4>
+<ul>
+  <li>マップ生成後に「到達不可エリア」を検出し再生成</li>
+  <li>経路探索を一定時間ごとに制限しパフォーマンスを安定化</li>
+  <li>エネミーが引っかからないようノード補正処理を追加</li>
+</ul>
+
     </p>
+  </div>
+</div>
 
-    <h2>スキル・学習内容</h2>
-    <ul>
-        <li>Unity / C#</li>
-        <li>タイルマップを用いたステージ生成</li>
-        <li>A*アルゴリズムによる経路探索</li>
-        <li>ゲームギミック実装（磁石・スイッチ・移動床）</li>
-        <li>状態管理・フラグ制御</li>
-    </ul>
+<!-- ================= Modal：エネミーAI ================= -->
+<div id="modal-enemy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModalEnemy()">×</span>
 
-    <hr>
+    <h3>エネミーAI 試作</h3>
 
-    <h2>作品紹介</h2>
+    <iframe
+      src="https://drive.google.com/file/d/1hYv9oMuJB_rv8YnaDlXYq1p-d_2nqX3E/preview"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
 
-    <h3>① タイルマップを用いたランダムステージ生成</h3>
-    <p>
-        タイルマップを使用し、ステージをランダムに生成するシステムを制作しました。<br>
-        一定のルールを設けることで、プレイ不可能な配置が発生しないよう制御しています。
+    <p class="modal-text">
+<h4>スクリプト構成・処理内容</h4>
+
+<ul class="script-list">
+  <li>
+    <strong>EnemyStateMachine.cs</strong><br>
+    Idle / Chase / Pull / Cooldown / Return の
+    状態遷移を管理するステートマシン構造。
+  </li>
+
+  <li>
+    <strong>EnemySight.cs</strong><br>
+    頭・胴・足元の3点からRaycastを発射し、
+    遮蔽物を考慮した視線判定を実装。
+  </li>
+
+  <li>
+    <strong>EnemyPull.cs</strong><br>
+    プレイヤーを引き寄せる攻撃処理。<br>
+    距離制限・硬直時間・クールダウンを管理。
+  </li>
+</ul>
+
+<h4>設計で意識した点</h4>
+<ul>
+  <li>1スクリプト1責任を意識した分割設計</li>
+  <li>Update依存を避け、一定間隔で判定処理を実行</li>
+  <li>状態遷移時に不要な処理を即停止する安全設計</li>
+</ul>
+
     </p>
-    <ul>
-        <li>使用技術：Unity / C# / Tilemap</li>
-        <li>工夫点：
-            <ul>
-                <li>スタートからゴールまで到達可能な構成になるよう制限を設定</li>
-                <li>毎回異なるマップでも遊びやすさを損なわない設計</li>
-            </ul>
-        </li>
-        <li>学んだこと：
-            <ul>
-                <li>ランダム性とゲーム性のバランス</li>
-                <li>条件分岐による生成制御</li>
-            </ul>
-        </li>
-    </ul>
+  </div>
+</div>
 
-    <h3>② A*アルゴリズムを用いた経路探索システム</h3>
-    <p>
-        キャラクターが目的地まで最短経路で移動するための
-        A*（エースター）アルゴリズムを実装しました。<br>
-        障害物の有無を考慮し、状況に応じて経路を再計算できる仕組みを作成しています。
-    </p>
-    <ul>
-        <li>使用技術：Unity / C#</li>
-        <li>工夫点：
-            <ul>
-                <li>グリッドベースでノードを管理</li>
-                <li>移動コストとヒューリスティックを用いた最短経路探索</li>
-            </ul>
-        </li>
-        <li>学んだこと：
-            <ul>
-                <li>アルゴリズムの仕組みを理解して実装する重要性</li>
-                <li>ゲームAIの基礎的な考え方</li>
-            </ul>
-        </li>
-    </ul>
-
-    <hr>
-
-    <h2>学生時代に力を入れたこと</h2>
-    <p>
-        スーパー鮮魚部門でのアルバイトに力を入れました。<br>
-        18時から閉店までを1人で任され、値引き判断・品出し・清掃を効率良く行う必要がありました。<br>
-        優先順位を考えて行動することで、時間管理力と責任感を身につけました。
-    </p>
-
-    <h2>強み</h2>
-    <p>
-        継続力とコミュニケーション力が強みです。<br>
-        MMOゲーム「ドラゴンクエストX」を1万時間以上継続プレイし、
-        ユーザーが迷いやすいポイントやストレスを感じる場面を
-        意識できる視点が身につきました。
-    </p>
-
-    <h2>資格</h2>
-    <ul>
-        <li>CGクリエイター検定 ベーシック 合格</li>
-        <li>情報検定 情報活用試験 3級 合格</li>
-    </ul>
-
-    <h2>志望職種</h2>
-    <p>ゲームプログラマー</p>
-
+<script src="script.js"></script>
 </body>
 </html>
