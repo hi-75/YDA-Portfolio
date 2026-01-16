@@ -1,5 +1,5 @@
 /* ===============================
-   Reset / Base
+  Reset / Base
 =============================== */
 * {
   box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
   color: #333;
   background: linear-gradient(
     -45deg,
-    #ffe9f0,
+    #ec004b,
     #e0f7ff,
     #fff6d5,
     #e6ffe8
@@ -32,7 +32,7 @@ body {
 }
 
 /* ===============================
-   Header
+  Header
 =============================== */
 header {
   position: fixed;
@@ -55,7 +55,7 @@ header a {
 }
 
 /* ===============================
-   Hero
+  Hero
 =============================== */
 .hero {
   min-height: 100vh;
@@ -80,7 +80,7 @@ header a {
 }
 
 /* ===============================
-   Section
+  Section
 =============================== */
 .section {
   padding: 100px 40px;
@@ -95,7 +95,7 @@ header a {
 }
 
 /* ===============================
-   Works
+  Works
 =============================== */
 .works-grid {
   display: grid;
@@ -126,7 +126,7 @@ header a {
 }
 
 /* ===============================
-   Skills
+  Skills
 =============================== */
 .skill-grid {
   display: grid;
@@ -143,7 +143,7 @@ header a {
 }
 
 /* ===============================
-   About / Resume
+  About / Resume
 =============================== */
 .about-wrap {
   display: flex;
@@ -179,7 +179,7 @@ header a {
 }
 
 /* ===============================
-   Profile Extend
+  Profile Extend
 =============================== */
 .profile-extend {
   margin-top: 40px;
@@ -230,7 +230,7 @@ header a {
 }
 
 /* ===============================
-   Modal
+  Modal
 =============================== */
 .modal {
   display: none;
@@ -247,7 +247,7 @@ header a {
 }
 
 .modal-content {
-  background: #fff;
+  background: #e90000;
   color: #333;
   width: min(900px, 92vw);
   max-height: 90vh;
@@ -274,7 +274,7 @@ header a {
 }
 
 /* ===============================
-   Scroll Animation
+  Scroll Animation
 =============================== */
 .fade-in {
   opacity: 0;
@@ -288,7 +288,7 @@ header a {
 }
 
 /* ===============================
-   Background Particles
+  Background Particles
 =============================== */
 .bg-particles,
 .slime-bg {
@@ -322,7 +322,7 @@ header a {
 }
 
 /* ===============================
-   Slime Background
+  Slime Background
 =============================== */
 .slime {
   position: absolute;
@@ -351,7 +351,7 @@ header a {
 .s4 { top: 75%; left: 25%; width: 140px; height: 110px; animation-duration: 36s; }
 
 /* ===============================
-   Responsive
+  Responsive
 =============================== */
 @media (max-width: 768px) {
   header {
