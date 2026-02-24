@@ -130,7 +130,27 @@
         高安定AIプロトタイプ
       </p>
     </div>
+    <!-- 作品③ -->
+<div class="work-card thumb" onclick="openModalPoke()">
+  <div class="thumb-image sub">
+    <img src="poke-typing.jpg">
+    <span>▶ PLAY MOVIE</span>
+  </div>
 
+  <h3>ポケAPI タイピングゲーム</h3>
+
+  <div class="tags">
+    <span>JavaScript</span>
+    <span>HTML/CSS</span>
+    <span>API通信</span>
+    <span>非同期処理</span>
+  </div>
+
+  <p>
+    PokéAPIを使用したランダム出題型<br>
+    タイピングゲーム
+  </p>
+</div>
   </div>
 </section>
 
@@ -312,8 +332,85 @@
 
     </p>
   </div>
+  
 </div>
+<!-- ================= Modal：ポケAPIタイピング ================= -->
+<div id="modal-poke" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModalPoke()">×</span>
 
+    <h3>ポケAPI タイピングゲーム</h3>
+    <p><strong>個人制作 / 制作期間：2週間</strong></p>
+
+    <iframe
+      src="https://drive.google.com/file/d/1dRUrdwEeq629GUmM8IF2J_xpaeGju6-F/preview"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+
+    <p class="modal-text">
+
+<h4>概要</h4>
+<p>
+PokéAPIを利用し、ランダムに取得したポケモン名を
+ローマ字入力でタイピングするゲームです。<br><br>
+
+単なる文字列一致ではなく、
+<strong>状態遷移型ローマ字判定エンジンを独自設計</strong>し、
+複数入力候補を同時に保持しながら
+正誤判定を行う仕組みを実装しました。
+</p>
+
+<h4>技術的特徴</h4>
+<ul>
+  <li>状態遷移型ローマ字判定エンジン（List<State>による分岐管理）</li>
+  <li>「shi / si」「tsu / tu」など複数入力候補の同時追跡</li>
+  <li>拗音（キャ / シャ）・促音（ッ）対応の2文字先読み処理</li>
+  <li>GASを利用したオンラインランキング送受信機能</li>
+  <li>仮想キーボード連動によるリアルタイム入力可視化</li>
+</ul>
+
+<h4>スクリプト構成・処理内容</h4>
+
+<ul class="script-list">
+  <li>
+    <strong>PokeApiManager.cs</strong><br>
+    ランダムIDを生成し、APIからJSONデータを取得。<br>
+    取得データを整形し、問題用ポケモン名と画像を生成。
+  </li>
+
+  <li>
+    <strong>TypingEngine.cs</strong><br>
+    List&lt;State&gt;を用いた状態遷移型入力判定を実装。<br>
+    入力ごとに候補を絞り込み、
+    分岐入力を許容しながら正誤判定を行う。
+  </li>
+
+  <li>
+    <strong>RankingManager.cs</strong><br>
+    GASへPOST送信しスコアを保存。<br>
+    mode=getでランキング取得後、
+    スコア順に並び替えて表示。
+  </li>
+
+  <li>
+    <strong>UIController.cs</strong><br>
+    入力状態に応じて文字色を変更し、
+    次に押すべきキーをガイド表示。
+  </li>
+</ul>
+
+<h4>工夫した点</h4>
+<ul>
+  <li>単純一致ではなく「入力状態管理型エンジン」として設計</li>
+  <li>複数候補を同時保持することで柔軟な入力対応を実現</li>
+  <li>非同期通信時のエラー処理を実装し安定性を確保</li>
+  <li>入力ミス時の演出を追加し、ゲーム体験を向上</li>
+</ul>
+
+    </p>
+  </div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>
