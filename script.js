@@ -1,29 +1,28 @@
+function openModalCpp() {
+    document.getElementById('modal-cpp').style.display = 'block';
+}
+function closeModalCpp() {
+    document.getElementById('modal-cpp').style.display = 'none';
+}
+
+// 他のモーダルも同様
 function openModalMain() {
-  document.getElementById("modal-main").classList.add("active");
+    document.getElementById('modal-main').style.display = 'block';
 }
 function closeModalMain() {
-  document.getElementById("modal-main").classList.remove("active");
+    document.getElementById('modal-main').style.display = 'none';
 }
-
 function openModalEnemy() {
-  document.getElementById("modal-enemy").classList.add("active");
+    document.getElementById('modal-enemy').style.display = 'block';
 }
 function closeModalEnemy() {
-  document.getElementById("modal-enemy").classList.remove("active");
-}
-function openModalTyping() {
-  document.getElementById("modal-typing").classList.add("active");
-}
-
-function closeModalTyping() {
-  document.getElementById("modal-typing").classList.remove("active");
+    document.getElementById('modal-enemy').style.display = 'none';
 }
 function openModalPoke() {
-  document.getElementById("modal-poke").classList.add("active");
+    document.getElementById('modal-poke').style.display = 'block';
 }
-
 function closeModalPoke() {
-  document.getElementById("modal-poke").classList.remove("active");
+    document.getElementById('modal-poke').style.display = 'none';
 }
 // scroll animation
 const targets = document.querySelectorAll(".fade-in");

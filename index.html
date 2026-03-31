@@ -168,7 +168,28 @@
     <span>ギミック実装</span>
   </div>
 </section>
+<!-- 作品④：恐怖の館 C++版 -->
+<div class="work-card thumb" onclick="openModalCpp()">
+  <div class="thumb-image sub">
+    <img src="cpp-fear.jpg">
+    <span>▶ VIEW CODE</span>
+  </div>
 
+  <h3>恐怖の館 C++版</h3>
+
+  <div class="tags">
+    <span>C++</span>
+    <span>DxLib</span>
+    <span>3Dレイキャスト</span>
+    <span>敵AI</span>
+    <span>BFS / A*</span>
+  </div>
+
+  <p>
+    3Dレイキャストによる視点描画と、BFS/A*による
+    高安定エネミー追跡AIを実装。
+  </p>
+</div>
 <!-- ================= About / Resume ================= -->
 <section id="about" class="section fade-in">
   <h2>About / Resume</h2>
@@ -409,6 +430,66 @@ PokéAPIを利用し、ランダムに取得したポケモン名を
 </ul>
 
     </p>
+  </div>
+</div>
+<!-- ================= Modal：恐怖の館 C++版 ================= -->
+<div id="modal-cpp" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModalCpp()">×</span>
+
+    <h3>恐怖の館 C++版</h3>
+    <p><strong>個人制作 / 制作期間：2週間</strong></p>
+
+    <!-- 修正ポイント：/view を /preview に変更 -->
+    <iframe
+      src="https://drive.google.com/file/d/1xM9MOUB-IRgLLaneYwZ7Qfu0_g-m1M3P/preview"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+
+    <section>
+      <h4>技術概要</h4>
+      <ul>
+        <li>DxLibを使用した自作3Dレイキャストによる壁描画</li>
+        <li>BFS/A*を用いたグリッドベースの敵AI追跡</li>
+        <li>プレイヤー心理演出（恐怖値・心拍UI）</li>
+      </ul>
+    </section>
+
+    <section>
+      <h4>スクリプト抜粋・見せたい部分</h4>
+      <pre>
+// 3Dレイキャストによる壁描画
+for (int x = 0; x  SCREEN_W; x++) {
+    float rayAngle = angle - FOV / 2 + (float)x / SCREEN_W * FOV;
+    float distance = CastRay(rayAngle);
+    DrawWallColumn(x, distance);
+}
+
+// 敵AI：BFSによる追跡
+if (chasing) {
+    FindPathBFS(exTile, eyTile, pxTile, pyTile, path);
+    MoveEnemyAlongPath(path);
+}
+
+// 恐怖値と心拍UI
+DrawBox(50, 650, 50 + (int)(fear * 2), 670, GetColor(255, 0, 0), TRUE);
+if (fear > 50 && heartBeatTimer > 30) {
+    HeartBeatEffect();
+}
+      </pre>
+    </section>
+
+    <section>
+      <h4>工夫した点</h4>
+      <ul>
+        <li>レンダリングとAIを分離し、パフォーマンスを最適化</li>
+        <li>経路探索は一定間隔で再計算しCPU負荷を抑制</li>
+        <li>恐怖値や心拍UIによりプレイヤー体験を強化</li>
+        <li>「プレイヤーが迷わず体験できる設計」を意識</li>
+      </ul>
+    </section>
+
   </div>
 </div>
 <script src="script.js"></script>
