@@ -31,6 +31,31 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+.thumb-image img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+}
+.work-card{
+    width:100%;
+    max-width:350px;
+    margin:auto;
+}
+
+.thumb-image{
+    width:100%;
+    height:220px;
+    overflow:hidden;
+    border-radius:12px;
+}
+
+.thumb-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
 /* ===============================
   Header
 =============================== */

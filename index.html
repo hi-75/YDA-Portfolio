@@ -85,6 +85,32 @@
 
   <div class="works-grid">
 
+    <!-- 作品①：迷路メーカー -->
+<div class="work-card thumb" onclick="openModalMazeEditor()">
+
+<div class="thumb-image sub">
+  <img src="https://drive.google.com/thumbnail?id=1Sk4c318ctTY2BK49BCJKAnbOzCJqBnZn&sz=w1000">
+  <span>▶ PLAY MOVIE</span>
+</div>
+
+  <h3>迷路メーカー</h3>
+
+  <div class="tags">
+    <span>C++</span>
+    <span>DxLib</span>
+    <span>MapEditor</span>
+    <span>CSV</span>
+    <span>3D</span>
+  </div>
+
+  <p>
+    卒業制作として開発中の<br>
+    3D迷路ゲーム向けマップエディタ
+  </p>
+
+</div>
+
+
     <!-- 作品① -->
     <div class="work-card thumb" onclick="openModalMain()">
       <div class="thumb-image"> <img src="thumb-yakata.jpg">
@@ -108,7 +134,28 @@
         A*アルゴリズムによるエネミー追従AI
       </p>
     </div>
+<!-- 作品④：恐怖の館 C++版 -->
+<div class="work-card thumb" onclick="openModalCpp()">
+  <div class="thumb-image sub">
+    <img src="thumb-yakata.jpg" alt="恐怖の館 C++版">
+    <span>▶ VIEW CODE</span>
+  </div>
 
+  <h3>恐怖の館 C++版</h3>
+
+  <div class="tags">
+    <span>C++</span>
+    <span>DxLib</span>
+    <span>3Dレイキャスト</span>
+    <span>敵AI</span>
+    <span>BFS / A*</span>
+  </div>
+
+  <p>
+    3Dレイキャストによる視点描画と、
+    BFS/A*による高安定エネミー追跡AIを実装。
+  </p>
+</div>
     <!-- 作品② -->
     <div class="work-card thumb" onclick="openModalEnemy()">
       <div class="thumb-image sub"> <img src="enemyAI.jpg">
@@ -153,43 +200,33 @@
 </div>
   </div>
 </section>
-
 <!-- ================= Skills ================= -->
 <section id="skills" class="section fade-in">
   <h2>Skills</h2>
+
   <div class="skill-grid">
-    <span>Unity（2D / 3D）</span>
-    <span>C#</span>
-    <span>Tilemap</span>
-    <span>ランダム生成</span>
-    <span>A*アルゴリズム</span>
-    <span>エネミーAI</span>
-    <span>状態管理</span>
-    <span>ギミック実装</span>
-  </div>
-</section>
-<!-- 作品④：恐怖の館 C++版 -->
-<div class="work-card thumb" onclick="openModalCpp()">
-  <div class="thumb-image sub">
-    <img src="cpp-fear.jpg">
-    <span>▶ VIEW CODE</span>
-  </div>
-
-  <h3>恐怖の館 C++版</h3>
-
-  <div class="tags">
     <span>C++</span>
+    <span>C#</span>
+    <span>Unity</span>
     <span>DxLib</span>
-    <span>3Dレイキャスト</span>
-    <span>敵AI</span>
-    <span>BFS / A*</span>
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>Git</span>
+    <span>CSV管理</span>
+    <span>A*アルゴリズム</span>
+    <span>AI設計</span>
+    <span>マップエディタ開発</span>
   </div>
 
-  <p>
-    3Dレイキャストによる視点描画と、BFS/A*による
-    高安定エネミー追跡AIを実装。
+  <p class="note">
+    ゲームプログラミングを中心に学習し、個人制作・チーム制作を通して実装経験を積んでいます。
   </p>
-</div>
+</section>
+
+
+
+
 <!-- ================= About / Resume ================= -->
 <section id="about" class="section fade-in">
   <h2>About / Resume</h2>
@@ -213,7 +250,7 @@
         <ul>
           <li><strong>氏名：</strong>リディロス ヒロシ</li>
           <li><strong>学校：</strong>横浜デジタルアーツ専門学校 ゲーム科</li>
-          <li><strong>学年：</strong>2年</li>
+          <li><strong>学年：</strong>3</li>
           <li><strong>志望職種：</strong>ゲームプログラマー</li>
         </ul>
       </div>
@@ -254,6 +291,135 @@
 </section>
 
 <footer>© Portfolio</footer>
+
+<!-- ================= Modal：迷路メーカー ================= -->
+<div id="modal-maze-editor" class="modal">
+
+  <div class="modal-content">
+
+    <span class="close"
+          onclick="closeModalMazeEditor()">×</span>
+
+    <h3>迷路メーカー</h3>
+
+    <p>
+<strong>
+  卒業制作 / チーム制作（担当：マップエディタ・当たり判定システム・CSV管理）
+</strong>
+    </p>
+
+<iframe
+  src="https://drive.google.com/file/d/17AlzCl_CkOn6kbpwwHYytI_2DhZ7vjeu/preview"
+  allow="autoplay; fullscreen"
+  allowfullscreen>
+</iframe>
+
+    <h4>概要</h4>
+
+    <p>
+      3D迷路ゲーム制作を効率化するために
+      開発したマップエディタです。
+
+      ブロック配置だけでなく、
+      レイヤー編集・CSV保存読込・
+      当たり判定管理まで行えます。
+
+      現在も機能追加を続けています。
+    </p>
+
+    <h4>実装機能</h4>
+
+    <ul>
+
+      <li>マウスによるブロック配置</li>
+
+      <li>レイヤー切替編集</li>
+
+      <li>CSV保存・読込</li>
+
+      <li>ブロック回転機能</li>
+
+      <li>当たり判定編集</li>
+
+      <li>ゲーム側とのデータ共有</li>
+
+      <li>マップ一覧管理</li>
+
+      <li>リアルタイムプレビュー</li>
+
+    </ul>
+
+    <h4>使用技術</h4>
+
+    <ul>
+
+      <li>C++</li>
+
+      <li>DxLib</li>
+
+      <li>CSVデータ管理</li>
+
+      <li>3D座標計算</li>
+
+      <li>シーン管理</li>
+
+      <li>当たり判定システム</li>
+
+    </ul>
+
+
+
+<ul>
+
+  <li>
+    <strong>CSVを利用したデータ駆動設計</strong><br>
+    model_config.csv や collision_config.csv を読み込み、
+    モデル情報や当たり判定情報を外部データとして管理しています。
+    新規オブジェクト追加時にコード修正を最小限に抑えられる構造にしました。
+  </li>
+
+  <li>
+    <strong>独自マップフォーマットの実装</strong><br>
+    FLOOR・WALL・CORNER・DECO・EVENTなどをセクション分割した
+    CSVフォーマットを設計し、
+    エディタとゲーム本体で共通利用できるようにしています。
+  </li>
+
+  <li>
+    <strong>多層マップ管理システム</strong><br>
+    3次元配列による階層管理を行い、
+    プレイヤーの高さから現在階層を自動判定する仕組みを実装しています。
+  </li>
+
+  <li>
+    <strong>拡張可能な当たり判定システム</strong><br>
+    通常のセル単位判定だけでなく、
+    辺ごとの当たり判定・厚み変更・長さ変更・コーナー判定を実装。
+    マップごとに細かなコリジョン調整が可能です。
+  </li>
+
+  <li>
+    <strong>階層単位ロードによる最適化</strong><br>
+    現在の階層のみを描画・判定対象にすることで、
+    マップ規模増加時の負荷軽減を意識して設計しています。
+  </li>
+
+  <li>
+    <strong>責務分離を意識した設計</strong><br>
+    描画処理・移動判定・カメラ判定を別ファイルへ分割し、
+    機能追加や保守を行いやすい構成にしています。
+  </li>
+
+</ul>
+
+
+
+
+    </ul>
+
+  </div>
+
+</div>
 
 <!-- ================= Modal：恐怖の館 ================= -->
 <div id="modal-main" class="modal">

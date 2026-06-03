@@ -24,6 +24,20 @@ function openModalPoke() {
 function closeModalPoke() {
     document.getElementById('modal-poke').style.display = 'none';
 }
+
+function openModalMazeEditor()
+{
+    document.getElementById(
+        "modal-maze-editor"
+    ).style.display = "block";
+}
+
+function closeModalMazeEditor()
+{
+    document.getElementById(
+        "modal-maze-editor"
+    ).style.display = "none";
+}
 // scroll animation
 const targets = document.querySelectorAll(".fade-in");
 window.addEventListener("scroll", () => {
