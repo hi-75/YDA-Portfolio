@@ -90,10 +90,10 @@
 
 <div class="thumb-image sub">
   <img src="https://drive.google.com/thumbnail?id=1Sk4c318ctTY2BK49BCJKAnbOzCJqBnZn&sz=w1000">
-  <span>▶ PLAY MOVIE</span>
+  <span>▶ MOVIE / CODE</span>
 </div>
 
-  <h3>迷路メーカー</h3>
+  <h3>迷路メーカー(制作途中)</h3>
 
   <div class="tags">
     <span>C++</span>
@@ -187,8 +187,8 @@
   <h3>ポケAPI タイピングゲーム</h3>
 
   <div class="tags">
-    <span>JavaScript</span>
-    <span>HTML/CSS</span>
+    <span>Unity</span>
+    <span>CSS</span>
     <span>API通信</span>
     <span>非同期処理</span>
   </div>
@@ -269,9 +269,7 @@
 
       <div class="resume-box">
         <h3>強み</h3>
-        <p>
-          MMOゲーム「ドラゴンクエストX」を
-          1万時間以上継続プレイしています。<br><br>
+        <p><br><br>
           ユーザーが迷いやすいポイントや
           ストレスを感じる場面を
           実装者視点で考えられることが強みです。
@@ -295,14 +293,14 @@
 <!-- ================= Modal：迷路メーカー ================= -->
 <div id="modal-maze-editor" class="modal">
 
-  <div class="modal-content">
+  <div class="modal-content maze-modal">
 
     <span class="close"
           onclick="closeModalMazeEditor()">×</span>
 
     <h3>迷路メーカー</h3>
 
-    <p>
+    <p class="maze-role">
 <strong>
   卒業制作 / チーム制作（担当：マップエディタ・当たり判定システム・CSV管理）
 </strong>
@@ -314,9 +312,17 @@
   allowfullscreen>
 </iframe>
 
-    <h4>概要</h4>
+    <nav class="maze-nav">
+      <a href="#maze-overview">概要</a>
+      <a href="#maze-features">機能</a>
+      <a href="#maze-tech">技術</a>
+      <a href="#maze-strong">強み</a>
+      <a href="#maze-code">コード</a>
+    </nav>
 
-    <p>
+    <h4 id="maze-overview">概要</h4>
+
+    <p class="maze-lead">
       3D迷路ゲーム制作を効率化するために
       開発したマップエディタです。
 
@@ -327,9 +333,9 @@
       現在も機能追加を続けています。
     </p>
 
-    <h4>実装機能</h4>
+    <h4 id="maze-features">実装機能</h4>
 
-    <ul>
+    <ul class="compact-list">
 
       <li>マウスによるブロック配置</li>
 
@@ -349,9 +355,9 @@
 
     </ul>
 
-    <h4>使用技術</h4>
+    <h4 id="maze-tech">使用技術</h4>
 
-    <ul>
+    <ul class="compact-list">
 
       <li>C++</li>
 
@@ -366,56 +372,504 @@
       <li>当たり判定システム</li>
 
     </ul>
+    <h4>技術的な工夫とコード</h4>
 
+    <div class="code-accordion">
+      <details>
+        <summary>
+          <strong>CSVを利用したデータ駆動設計</strong>
+          <span>model_config.csv や collision_config.csv を読み込み、モデル情報や当たり判定情報を外部データとして管理しています。</span>
+        </summary>
 
+        <pre><code>// MapLoader.cpp：モデル情報をCSVから読み込む
+static void LoadGameModelConfig()
+{
+    ifstream ifs("model_config.csv");
+    if (!ifs)
+    {
+        printfDx("model_config.csv load failed\n");
+        return;
+    }
 
-<ul>
+    string line;
+    while (getline(ifs, line))
+    {
+        if (line.empty() || line[0] == '#')
+            continue;
 
-  <li>
-    <strong>CSVを利用したデータ駆動設計</strong><br>
-    model_config.csv や collision_config.csv を読み込み、
-    モデル情報や当たり判定情報を外部データとして管理しています。
-    新規オブジェクト追加時にコード修正を最小限に抑えられる構造にしました。
-  </li>
+        vector&lt;string&gt; cols = SplitCSV(line);
+        if (cols.size() &lt; 3 || cols[0] == "id")
+            continue;
 
-  <li>
-    <strong>独自マップフォーマットの実装</strong><br>
-    FLOOR・WALL・CORNER・DECO・EVENTなどをセクション分割した
-    CSVフォーマットを設計し、
-    エディタとゲーム本体で共通利用できるようにしています。
-  </li>
+        int id = stoi(cols[0]);
+        string modelPath = cols[2];
+        float scaleX = cols.size() &gt;= 5 ? stof(cols[4]) : 1.0f;
+        float scaleY = cols.size() &gt;= 6 ? stof(cols[5]) : scaleX;
+        float scaleZ = cols.size() &gt;= 7 ? stof(cols[6]) : scaleX;
 
-  <li>
-    <strong>多層マップ管理システム</strong><br>
-    3次元配列による階層管理を行い、
-    プレイヤーの高さから現在階層を自動判定する仕組みを実装しています。
-  </li>
+        // CSV側の情報を元にモデルを登録するため、
+        // 新規オブジェクト追加時のコード修正を減らせる
+        gameModelHandles[id] = MV1LoadModel(modelPath.c_str());
+        if (gameModelHandles[id] != -1)
+            MV1SetScale(gameModelHandles[id], VGet(scaleX, scaleY, scaleZ));
+    }
+}</code></pre>
+      </details>
 
-  <li>
-    <strong>拡張可能な当たり判定システム</strong><br>
-    通常のセル単位判定だけでなく、
-    辺ごとの当たり判定・厚み変更・長さ変更・コーナー判定を実装。
-    マップごとに細かなコリジョン調整が可能です。
-  </li>
+      <details>
+        <summary>
+          <strong>独自マップフォーマットの実装</strong>
+          <span>FLOOR・WALL・CORNER・DECO・EVENTなどをセクション分割したCSVフォーマットを設計し、エディタとゲーム本体で共通利用しています。</span>
+        </summary>
 
-  <li>
-    <strong>階層単位ロードによる最適化</strong><br>
-    現在の階層のみを描画・判定対象にすることで、
-    マップ規模増加時の負荷軽減を意識して設計しています。
-  </li>
+        <pre><code>// MapIO.cpp：マップを用途別セクションに分けて保存
+ofs &lt;&lt; "#MAP3D\n";
+ofs &lt;&lt; "SIZE," &lt;&lt; BLOCK_NUM_X &lt;&lt; "," &lt;&lt; BLOCK_NUM_Y &lt;&lt; "," &lt;&lt; BLOCK_NUM_Z &lt;&lt; "\n";
+ofs &lt;&lt; "START," &lt;&lt; startX &lt;&lt; "," &lt;&lt; startY &lt;&lt; "," &lt;&lt; startZ &lt;&lt; "\n";
+ofs &lt;&lt; "GOAL," &lt;&lt; goalX &lt;&lt; "," &lt;&lt; goalY &lt;&lt; "," &lt;&lt; goalZ &lt;&lt; "\n";
 
-  <li>
-    <strong>責務分離を意識した設計</strong><br>
-    描画処理・移動判定・カメラ判定を別ファイルへ分割し、
-    機能追加や保守を行いやすい構成にしています。
-  </li>
+ofs &lt;&lt; "\n[FLOOR]\n";
+ofs &lt;&lt; "y,z,x,id,rot\n";
 
-</ul>
+ofs &lt;&lt; "\n[WALL_A]\n";
+ofs &lt;&lt; "y,z,x,id,rot\n";
 
+ofs &lt;&lt; "\n[COLLISION]\n";
+ofs &lt;&lt; "y,z,x,block,offsetX,offsetZ,sizeX,sizeZ\n";
 
+ofs &lt;&lt; "\n[EVENT]\n";
+ofs &lt;&lt; "y,z,x,id\n";
 
+ofs &lt;&lt; "\n[ENEMY]\n";
+ofs &lt;&lt; "y,z,x,id\n";</code></pre>
+      </details>
 
+      <details>
+        <summary>
+          <strong>多層マップ管理システム</strong>
+          <span>3次元配列による階層管理を行い、プレイヤーの高さから現在階層を自動判定する仕組みを実装しています。</span>
+        </summary>
+
+        <pre><code>// MapLoader.cpp：ワールドY座標から現在階層を計算
+int GetMapLayerFromWorldY(float worldY)
+{
+    int layer = (int)floorf((worldY + 1.0f) / BLOCK_SIZE);
+
+    if (layer &lt; 0) layer = 0;
+    if (layer &gt;= BLOCK_NUM_Y) layer = BLOCK_NUM_Y - 1;
+
+    return layer;
+}
+
+// Character.cpp：プレイヤーの高さに応じてロード対象階層を更新
+m_layer = GetMapLayerFromWorldY(pos.y + BLOCK_SIZE * 0.5f);
+SetGameLoadedLayer(m_layer);</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>拡張可能な当たり判定システム</strong>
+          <span>セル単位だけでなく、辺ごとの当たり判定・長さ・厚み・コーナー判定まで保存して調整できます。</span>
+        </summary>
+
+        <pre><code>// MapIO.cpp：[COLLISION_EDGE]で辺ごとの判定・長さ・厚みを保存
+ofs &lt;&lt; "\n[COLLISION_EDGE]\n";
+ofs &lt;&lt; "y,z,x,mask,s0,s1,s2,s3,t0,t1,t2,t3\n";
+
+if (CollisionEdgeMap[y][z][x] &gt;= 0)
+{
+    ofs &lt;&lt; y &lt;&lt; "," &lt;&lt; z &lt;&lt; "," &lt;&lt; x &lt;&lt; ","
+        &lt;&lt; CollisionEdgeMap[y][z][x] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeScaleMap[y][z][x][0] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeScaleMap[y][z][x][1] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeScaleMap[y][z][x][2] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeScaleMap[y][z][x][3] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeThicknessMap[y][z][x][0] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeThicknessMap[y][z][x][1] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeThicknessMap[y][z][x][2] &lt;&lt; ","
+        &lt;&lt; CollisionEdgeThicknessMap[y][z][x][3] &lt;&lt; "\n";
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>階層単位ロードによる最適化</strong>
+          <span>現在階層を中心に必要な階層だけを描画・判定対象にし、マップ規模増加時の負荷軽減を意識しています。</span>
+        </summary>
+
+        <pre><code>// MapLoaderRendering.inl：現在階層周辺だけを描画対象にする
+for (int y = 0; y &lt; BLOCK_NUM_Y; y++)
+{
+    if (y &lt; gameLoadedLayer - 1 || y &gt; gameLoadedLayer + 1)
+        continue;
+
+    for (int z = 0; z &lt; BLOCK_NUM_Z; z++)
+    {
+        for (int x = 0; x &lt; BLOCK_NUM_X; x++)
+        {
+            if (GameFloorMap[y][z][x] &gt;= 0)
+                DrawModelById(GameFloorMap[y][z][x], GetModelDrawPosition(FLOOR, x, y, z, GameFloorRot[y][z][x]), GameFloorRot[y][z][x]);
+        }
+    }
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>責務分離を意識した設計</strong>
+          <span>描画・移動判定・カメラ判定・ミニマップなどを別ファイルへ分割し、機能追加や保守を行いやすい構成にしています。</span>
+        </summary>
+
+        <pre><code>// MapLoader.cpp：機能ごとに処理を分割して読み込む
+#include "MapLoaderCameraCollision.inl"
+
+// CSV読込、初期化、座標変換などは MapLoader.cpp 側で管理
+void LoadGameMap()
+{
+    ClearGameMap();
+    // CSVを読み込み、GameFloorMap / GameCollisionMap などへ復元
+}
+
+#include "MapLoaderMovementCollision.inl"
+
+// MapLoaderRendering.inl：描画側は描画処理だけに集中
+#include "MapLoaderMiniMap.inl"</code></pre>
+      </details>
+    </div>
+
+    <h4 id="maze-strong">この作品で伝えたい強み</h4>
+
+    <ul class="strength-list">
+      <li>
+        <strong>制作効率を上げるためのツール開発力</strong><br>
+        マップをコード上で直接編集する形だと、
+        変更のたびに確認や修正に時間がかかるため、
+        配置・保存・読込・当たり判定調整をエディタ上で完結できるようにしました。
+        プログラマー以外でもマップ調整に関われる構造にし、
+        チーム制作全体の作業効率を高めることを意識しました。
+      </li>
+
+      <li>
+        <strong>後から機能追加しやすい設計意識</strong><br>
+        FLOOR・WALL・DECO・EVENT・ENEMY・COLLISIONを分けて管理し、
+        保存形式もセクションごとに分割しました。
+        敵配置や当たり判定など、後から必要になった機能を追加しても
+        既存のマップデータや配置処理を壊しにくい構成を意識しています。
+      </li>
+
+      <li>
+        <strong>調整しやすさを考えた実装</strong><br>
+        当たり判定のズレはプレイヤーのストレスに直結するため、
+        数値だけで管理するのではなく、
+        BoxCollider風に表示しながら位置やサイズを調整できるようにしました。
+        実際に遊んで違和感が出た箇所を素早く修正できるため、
+        デバッグと調整のしやすさを両立しています。
+      </li>
+
+      <li>
+        <strong>プレイヤー体験を意識した裏側の実装</strong><br>
+        ミニマップでは探索済みのセルだけを表示し、
+        未探索エリアを見せすぎないようにすることで、
+        迷路を探索する緊張感を残す設計にしました。
+        エディタの使いやすさだけでなく、
+        最終的にプレイヤーがどう感じるかまで考えて実装しています。
+      </li>
+
+      <li>
+        <strong>問題を見つけて改善し続ける姿勢</strong><br>
+        旧CSVとの互換対応、敵データのEVENTからENEMYへの分離、
+        未保存時の確認、範囲コピー時の当たり判定保持など、
+        制作中に出た問題をその場しのぎにせず、
+        使い続けられる形へ改善してきました。
+      </li>
     </ul>
+
+    <h4 id="maze-code">処理別コード</h4>
+
+    <div class="code-accordion">
+      <details>
+        <summary>
+          <strong>MapEditor.cpp：マウス座標から配置セルを取得</strong>
+          <span>画面上のマウス位置を3D空間へ変換し、現在の階層で指しているマスを求める処理。</span>
+        </summary>
+
+        <pre><code>// マウス位置から現在階層のグリッド座標を計算
+VECTOR nearPos = ConvScreenPosToWorldPos(VGet((float)mx, (float)my, 0.0f));
+VECTOR farPos  = ConvScreenPosToWorldPos(VGet((float)mx, (float)my, 1.0f));
+
+float targetY = currentLayer * BLOCK_SIZE;
+float dy = farPos.y - nearPos.y;
+
+if (fabsf(dy) &gt; 0.0001f)
+{
+    float t = (targetY - nearPos.y) / dy;
+
+    if (t &gt;= 0.0f &amp;&amp; t &lt;= 1.0f)
+    {
+        VECTOR hit = VGet(0.0f, targetY, 0.0f);
+        hit.x = nearPos.x + (farPos.x - nearPos.x) * t;
+        hit.z = nearPos.z + (farPos.z - nearPos.z) * t;
+
+        hoverWorldX = hit.x;
+        hoverWorldZ = hit.z;
+        hoverX = (int)floorf(hit.x / BLOCK_SIZE);
+        hoverZ = (int)floorf(hit.z / BLOCK_SIZE);
+    }
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>MapEditor.cpp：配置処理</strong>
+          <span>FLOOR / WALL など、選択中タブに応じて保存先の3次元配列を切り替える処理。</span>
+        </summary>
+
+        <pre><code>// 選択中タブに応じて、配置先の配列を切り替える
+if (!collisionEditMode &amp;&amp; !selectMode &amp;&amp; !shift &amp;&amp; !isUI &amp;&amp; (singlePlace || brushPlace))
+{
+    PushUndo();
+
+    int model = GetSelectedModel();
+
+    if (currentTab == FLOOR)
+    {
+        FloorMap[layer][z][x] = model;
+        FloorRot[layer][z][x] = currentRot;
+    }
+    else if (currentTab == WALL)
+    {
+        if (WallMapA[layer][z][x] == -1)
+        {
+            WallMapA[layer][z][x] = model;
+            WallRotA[layer][z][x] = currentRot;
+        }
+        else
+        {
+            WallMapB[layer][z][x] = model;
+            WallRotB[layer][z][x] = currentRot;
+        }
+    }
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>MapEditor.cpp：当たり判定編集</strong>
+          <span>通常配置と分けて、クリックしたセルのコライダーをBoxCollider風に調整する処理。</span>
+        </summary>
+
+        <pre><code>// コライダー編集時は、クリックしたセルを編集対象として保持
+if (collisionEditMode &amp;&amp; !selectMode &amp;&amp; !shift &amp;&amp; !isUI &amp;&amp; canAccess)
+{
+    if (lTrigger)
+    {
+        PushUndo();
+
+        if (CollisionMap[layer][z][x] &lt; 0)
+        {
+            CollisionMap[layer][z][x] = 1;
+            ResetCollisionBox(layer, z, x);
+        }
+
+        collisionBoxDragMode = GetCollisionBoxDragMode(layer, z, x, hoverWorldX, hoverWorldZ);
+        if (collisionBoxDragMode == 0)
+            collisionBoxDragMode = 5;
+
+        collisionBoxDragging = true;
+        selectedCollisionLayer = layer;
+        selectedCollisionX = x;
+        selectedCollisionZ = z;
+
+        ApplyCollisionBoxDrag(layer, z, x, collisionBoxDragMode, hoverWorldX, hoverWorldZ);
+    }
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>MapIO.cpp：独自CSVフォーマット保存</strong>
+          <span>床・壁・イベント・敵・当たり判定をセクション分けし、ゲーム本体と共有できる形で保存する処理。</span>
+        </summary>
+
+        <pre><code>// MapIO.cpp：マップ情報をセクションごとにCSV保存
+ofs &lt;&lt; "#MAP3D\n";
+ofs &lt;&lt; "NAME," &lt;&lt; (gameCurrentMapName[0] != '\0' ? gameCurrentMapName : "") &lt;&lt; "\n";
+ofs &lt;&lt; "SIZE," &lt;&lt; BLOCK_NUM_X &lt;&lt; "," &lt;&lt; BLOCK_NUM_Y &lt;&lt; "," &lt;&lt; BLOCK_NUM_Z &lt;&lt; "\n";
+ofs &lt;&lt; "START," &lt;&lt; startX &lt;&lt; "," &lt;&lt; startY &lt;&lt; "," &lt;&lt; startZ &lt;&lt; "\n";
+ofs &lt;&lt; "GOAL," &lt;&lt; goalX &lt;&lt; "," &lt;&lt; goalY &lt;&lt; "," &lt;&lt; goalZ &lt;&lt; "\n";
+
+ofs &lt;&lt; "\n[FLOOR]\n";
+ofs &lt;&lt; "y,z,x,id,rot\n";
+for (int y = 0; y &lt; BLOCK_NUM_Y; y++)
+    for (int z = 0; z &lt; BLOCK_NUM_Z; z++)
+        for (int x = 0; x &lt; BLOCK_NUM_X; x++)
+            if (FloorMap[y][z][x] &gt;= 0)
+                ofs &lt;&lt; y &lt;&lt; "," &lt;&lt; z &lt;&lt; "," &lt;&lt; x &lt;&lt; ","
+                    &lt;&lt; FloorMap[y][z][x] &lt;&lt; "," &lt;&lt; FloorRot[y][z][x] &lt;&lt; "\n";
+
+ofs &lt;&lt; "\n[COLLISION]\n";
+ofs &lt;&lt; "y,z,x,block,offsetX,offsetZ,sizeX,sizeZ\n";
+for (int y = 0; y &lt; BLOCK_NUM_Y; y++)
+    for (int z = 0; z &lt; BLOCK_NUM_Z; z++)
+        for (int x = 0; x &lt; BLOCK_NUM_X; x++)
+            if (CollisionMap[y][z][x] &gt;= 0)
+                ofs &lt;&lt; y &lt;&lt; "," &lt;&lt; z &lt;&lt; "," &lt;&lt; x &lt;&lt; ","
+                    &lt;&lt; CollisionMap[y][z][x] &lt;&lt; ","
+                    &lt;&lt; CollisionBoxOffsetXMap[y][z][x] &lt;&lt; ","
+                    &lt;&lt; CollisionBoxOffsetZMap[y][z][x] &lt;&lt; ","
+                    &lt;&lt; CollisionBoxSizeXMap[y][z][x] &lt;&lt; ","
+                    &lt;&lt; CollisionBoxSizeZMap[y][z][x] &lt;&lt; "\n";
+
+ofs &lt;&lt; "\n[ENEMY]\n";
+ofs &lt;&lt; "y,z,x,id\n";</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>MapIO.cpp：CSV読込処理</strong>
+          <span>CSVのセクション名を見ながら、床・壁・当たり判定・敵などを対応する配列へ復元する処理。</span>
+        </summary>
+
+        <pre><code>// MapIO.cpp：CSVを1行ずつ読み込み、現在のセクションに応じて復元
+while (getline(ifs, line))
+{
+    if (line.empty() || line[0] == '#')
+        continue;
+
+    if (line[0] == '[')
+    {
+        section = line;
+        continue;
+    }
+
+    vector&lt;string&gt; cols = SplitCSV(line);
+    if (cols.empty() || cols[0] == "y")
+        continue;
+
+    if (section == "[FLOOR]" &amp;&amp; cols.size() &gt;= 5)
+    {
+        int y = stoi(cols[0]);
+        int z = stoi(cols[1]);
+        int x = stoi(cols[2]);
+
+        if (IsSaveLoadPosValid(y, z, x))
+        {
+            FloorMap[y][z][x] = stoi(cols[3]);
+            FloorRot[y][z][x] = stoi(cols[4]);
+        }
+    }
+    else if (section == "[COLLISION]" &amp;&amp; cols.size() &gt;= 4)
+    {
+        int y = stoi(cols[0]);
+        int z = stoi(cols[1]);
+        int x = stoi(cols[2]);
+
+        if (IsSaveLoadPosValid(y, z, x))
+        {
+            CollisionMap[y][z][x] = stoi(cols[3]);
+            CollisionBoxOffsetXMap[y][z][x] = cols.size() &gt; 4 ? stoi(cols[4]) : 0;
+            CollisionBoxOffsetZMap[y][z][x] = cols.size() &gt; 5 ? stoi(cols[5]) : 0;
+            CollisionBoxSizeXMap[y][z][x] = cols.size() &gt; 6 ? stoi(cols[6]) : (int)BLOCK_SIZE;
+            CollisionBoxSizeZMap[y][z][x] = cols.size() &gt; 7 ? stoi(cols[7]) : (int)BLOCK_SIZE;
+        }
+    }
+    else if (section == "[ENEMY]" &amp;&amp; cols.size() &gt;= 4)
+    {
+        int y = stoi(cols[0]);
+        int z = stoi(cols[1]);
+        int x = stoi(cols[2]);
+
+        if (IsSaveLoadPosValid(y, z, x))
+            EnemyMap[y][z][x] = NormalizeEnemyIdForCsv(stoi(cols[3]));
+    }
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>MapLoaderMiniMap.inl：探索済みセルだけ表示するミニマップ</strong>
+          <span>プレイヤーがいるマスだけを訪問済みにし、未訪問のマスは描画しないことで周囲を見えないようにする処理。</span>
+        </summary>
+
+        <pre><code>// MapLoaderMiniMap.inl：プレイヤーがいるセルを訪問済みにする
+static void RevealMiniMapAroundPlayer(VECTOR playerPos, int layer)
+{
+    int playerCellX = WorldToCell(playerPos.x);
+    int playerCellZ = WorldToCell(playerPos.z);
+
+    if (IsGameMapPosValid(layer, playerCellZ, playerCellX))
+    {
+        GameMiniMapVisited[layer][playerCellZ][playerCellX] = true;
+    }
+}
+
+void DrawMiniMap(VECTOR playerPos)
+{
+    int layer = GetMapLayerFromWorldY(playerPos.y);
+    RevealMiniMapAroundPlayer(playerPos, layer);
+
+    for (int z = 0; z &lt; BLOCK_NUM_Z; z++)
+    {
+        for (int x = 0; x &lt; BLOCK_NUM_X; x++)
+        {
+            // 未探索のマスは描画しないため、先の地形が見えない
+            if (!GameMiniMapVisited[layer][z][x])
+                continue;
+
+            bool walkable = GameFloorMap[layer][z][x] &gt;= 0 ||
+                            IsStairsId(GameDecoMap[layer][z][x]);
+
+            if (walkable)
+                DrawBox(left + 1, top + 1, right - 1, bottom - 1, GetColor(42, 58, 66), TRUE);
+
+            if (GameCollisionMap[layer][z][x] &gt;= 0)
+                DrawBox(left + 2, top + 2, right - 2, bottom - 2, GetColor(120, 55, 70), TRUE);
+        }
+    }
+}</code></pre>
+      </details>
+
+      <details>
+        <summary>
+          <strong>MapEditorSelectionClipboard.inl：範囲コピー / 貼り付け</strong>
+          <span>配置物だけでなく、敵・イベント・当たり判定の調整値までまとめてコピーする処理。</span>
+        </summary>
+
+        <pre><code>// MapEditorSelectionClipboard.inl：選択範囲をコピー
+int minX = min(selectStartX, selectEndX);
+int maxX = max(selectStartX, selectEndX);
+int minZ = min(selectStartZ, selectEndZ);
+int maxZ = max(selectStartZ, selectEndZ);
+
+copySizeX = maxX - minX + 1;
+copySizeZ = maxZ - minZ + 1;
+
+for (int z = 0; z &lt; copySizeZ; z++)
+{
+    for (int x = 0; x &lt; copySizeX; x++)
+    {
+        int srcX = minX + x;
+        int srcZ = minZ + z;
+
+        CopyFloorMap[z][x] = FloorMap[selectLayer][srcZ][srcX];
+        CopyFloorRot[z][x] = FloorRot[selectLayer][srcZ][srcX];
+        CopyWallMapA[z][x] = WallMapA[selectLayer][srcZ][srcX];
+        CopyWallMapB[z][x] = WallMapB[selectLayer][srcZ][srcX];
+
+        CopyEnemyMap[z][x] = EnemyMap[selectLayer][srcZ][srcX];
+        CopyEventMap[z][x] = EventMap[selectLayer][srcZ][srcX];
+
+        CopyCollisionMap[z][x] = CollisionMap[selectLayer][srcZ][srcX];
+        CopyCollisionBoxOffsetXMap[z][x] = CollisionBoxOffsetXMap[selectLayer][srcZ][srcX];
+        CopyCollisionBoxOffsetZMap[z][x] = CollisionBoxOffsetZMap[selectLayer][srcZ][srcX];
+        CopyCollisionBoxSizeXMap[z][x] = CollisionBoxSizeXMap[selectLayer][srcZ][srcX];
+        CopyCollisionBoxSizeZMap[z][x] = CollisionBoxSizeZMap[selectLayer][srcZ][srcX];
+    }
+}
+
+hasCopyData = true;</code></pre>
+      </details>
+    </div>
 
   </div>
 
