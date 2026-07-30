@@ -170,3 +170,13 @@ footer { text-align: center; padding: 46px 20px; border-top: 4px solid #173c92; 
 .modal-github-link {
   margin: 6px 0 14px;
 }
+.card-thumbnail iframe {
+  pointer-events: none;
+}
+
+.modal-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 14px;
+}
