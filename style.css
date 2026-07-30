@@ -1,4 +1,4 @@
-* { box-sizing: border-box; }
+﻿* { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 82px; }
 body {
   margin: 0;
@@ -179,4 +179,71 @@ footer { text-align: center; padding: 46px 20px; border-top: 4px solid #173c92; 
   flex-wrap: wrap;
   gap: 10px;
   margin: 6px 0 14px;
+}
+
+/* Featured work layout fix */
+.featured-game {
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr);
+  align-items: stretch;
+}
+
+.featured-game .card-thumbnail,
+.featured-game .card-body {
+  min-width: 0;
+  position: relative;
+}
+
+.featured-game .card-thumbnail {
+  z-index: 0;
+  background: #081329;
+}
+
+.featured-game .card-thumbnail iframe {
+  max-width: 100%;
+}
+
+.featured-game .card-body {
+  z-index: 1;
+  background: #fff8cc;
+  border-left: 3px solid #173c92;
+  justify-content: flex-start;
+}
+
+.featured-game .card-title {
+  font-size: clamp(1.45rem, 2.7vw, 2.2rem);
+  line-height: 1.08;
+}
+
+.featured-game .card-desc {
+  color: #27405d;
+  line-height: 1.75;
+}
+
+.featured-game .work-actions {
+  margin-top: 8px;
+  align-items: stretch;
+}
+
+.featured-game .github-link {
+  flex: 1 1 190px;
+  min-width: 0;
+  padding-inline: 12px;
+  text-align: center;
+  line-height: 1.35;
+}
+
+@media (max-width: 1240px) {
+  .featured-game {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-game .card-thumbnail {
+    min-height: 300px;
+    border-right: 0;
+    border-bottom: 3px solid #173c92;
+  }
+
+  .featured-game .card-body {
+    border-left: 0;
+  }
 }
